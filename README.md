@@ -1,4 +1,4 @@
-# MyFinance
+# My Capital One
 
 A modern personal finance management application built with Next.js, TypeScript, and shadcn/ui.
 
@@ -22,7 +22,7 @@ A modern personal finance management application built with Next.js, TypeScript,
 ## Project Structure
 
 ```
-MyFinance/
+myCapitalOne/
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx          # Root layout

@@ -21,9 +21,13 @@ export default function Header({ onMenuClick }: HeaderProps) {
         <div className="flex-1 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">MF</span>
+              <span className="text-primary-foreground font-bold text-sm">
+                MCO
+              </span>
             </div>
-            <span className="text-lg font-semibold hidden sm:inline-block">MyFinance</span>
+            <span className="text-lg font-semibold hidden sm:inline-block">
+              My Capital One
+            </span>
           </div>
 
           <div className="flex items-center gap-4">
@@ -32,9 +36,9 @@ export default function Header({ onMenuClick }: HeaderProps) {
               aria-label="Notifications"
             >
               <Bell className="h-5 w-5" />
-              <span className="absolute top-1 right-1 h-2 w-2 bg-red-600 rounded-full"></span>
+              <span className="absolute top-1 right-1 h-2 w-2 bg-destructive rounded-full"></span>
             </button>
-            
+
             <button
               className="p-2 hover:bg-accent rounded-md"
               aria-label="User menu"

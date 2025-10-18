@@ -51,7 +51,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             {navigation.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
-              
+
               return (
                 <Link
                   key={item.name}
@@ -62,7 +62,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                     transition-colors
                     ${
                       isActive
-                        ? "bg-primary text-primary-foreground"
+                        ? "bg-secondary text-secondary-foreground"
                         : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                     }
                   `}
@@ -73,13 +73,6 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
               );
             })}
           </nav>
-
-          <div className="pt-4 border-t">
-            <div className="text-xs text-muted-foreground px-3">
-              <p>© 2025 MyFinance</p>
-              <p className="mt-1">v1.0.0</p>
-            </div>
-          </div>
         </div>
       </aside>
     </>
