@@ -43,6 +43,22 @@ export type Tx = {
   category?: string;
 };
 
+export type TransactionFilter = {
+  startDate?: string; // ISO date string (e.g., "2025-10-01")
+  endDate?: string; // ISO date string (e.g., "2025-10-31")
+  categories?: string[]; // Array of category names to include
+  type?: "debit" | "credit"; // Filter by transaction type
+  limit?: number; // Maximum number of transactions to display
+};
+
+export type ChartFilter = {
+  startDate?: string; // ISO date string (e.g., "2025-10-01")
+  endDate?: string; // ISO date string (e.g., "2025-10-31")
+  categories?: string[]; // Array of category names to include
+  minAmount?: number; // Minimum absolute amount to include
+  maxAmount?: number; // Maximum absolute amount to include
+};
+
 function coerceTransactions(input: any): Tx[] {
   if (Array.isArray(input)) return input as Tx[];
   if (input && Array.isArray((input as any).transactions))
@@ -73,19 +89,84 @@ function aggregateIncomeExpenses(
 const chartConfig: ChartConfig = {
   expenses: {
     label: "Expenses",
-    color: "var(--chart-1, hsl(var(--tertiary)))",
+    color: "hsl(var(--chart-1))",
     icon: TrendingDown,
   },
   income: {
     label: "Income",
-    color: "var(--chart-2, hsl(var(--secondary)))",
+    color: "hsl(var(--chart-2))",
     icon: TrendingUp,
   },
 };
 
-export const TransactionsInformation = ({ display }: { display: boolean }) => {
+function latestMonthRange(txs: Tx[]) {
+  const pickLatest = () => {
+    if (!txs.length) return new Date();
+    return new Date(
+      txs.reduce((max, t) => {
+        const time = new Date(t.date).getTime();
+        return time > max ? time : max;
+      }, -Infinity)
+    );
+  };
+
+  const latest = pickLatest();
+  const y = latest.getFullYear();
+  const m = latest.getMonth(); // 0-based
+  const lastDay = new Date(y, m + 1, 0).getDate();
+  const fmt = (year: number, monthIndex: number, day: number) =>
+    `${year}-${String(monthIndex + 1).padStart(2, "0")}-${String(day).padStart(
+      2,
+      "0"
+    )}`;
+
+  return {
+    start: fmt(y, m, 1),
+    end: fmt(y, m, lastDay),
+  };
+}
+
+export const TransactionsInformation = ({
+  display = true,
+  startDate,
+  endDate,
+  categories,
+  type,
+  limit = 5,
+}: {
+  display?: boolean;
+  startDate?: string;
+  endDate?: string;
+  categories?: string[];
+  type?: "debit" | "credit";
+  limit?: number;
+}) => {
   const all = coerceTransactions(transactions);
-  const txs = all.slice(0, 5);
+
+  // Compute defaults based on latest month present in data (fallback to current month if none)
+  const { start: defaultStart, end: defaultEnd } = latestMonthRange(all);
+  const effectiveStart = startDate ?? defaultStart;
+  const effectiveEnd = endDate ?? defaultEnd;
+
+  // Apply filters to transactions
+  const filteredTransactions = all.filter((tx) => {
+    // Filter by date range
+    if (effectiveStart && tx.date < effectiveStart) return false;
+    if (effectiveEnd && tx.date > effectiveEnd) return false;
+
+    // Filter by categories
+    if (categories && categories.length > 0) {
+      if (!tx.category || !categories.includes(tx.category)) return false;
+    }
+
+    // Filter by transaction type
+    if (type && tx.type !== type) return false;
+
+    return true;
+  });
+
+  // Limit number of transactions
+  const txs = filteredTransactions.slice(0, limit);
 
   return (
     <>
@@ -138,9 +219,40 @@ export const TransactionsInformation = ({ display }: { display: boolean }) => {
   );
 };
 
-export function IncomeExpenseChart({ display }: { display: boolean }) {
+export function IncomeExpenseChart({
+  display,
+  filter,
+}: {
+  display: boolean;
+  filter?: ChartFilter;
+}) {
   const all = coerceTransactions(transactions);
-  const data = aggregateIncomeExpenses(all);
+
+  // Apply filters to transactions
+  const filteredTransactions = all.filter((tx) => {
+    if (!filter) return true;
+
+    // Filter by date range
+    if (filter.startDate && tx.date < filter.startDate) return false;
+    if (filter.endDate && tx.date > filter.endDate) return false;
+
+    // Filter by categories
+    if (filter.categories && filter.categories.length > 0) {
+      if (!tx.category || !filter.categories.includes(tx.category))
+        return false;
+    }
+
+    // Filter by amount range
+    const absoluteAmount = Math.abs(tx.amount);
+    if (filter.minAmount !== undefined && absoluteAmount < filter.minAmount)
+      return false;
+    if (filter.maxAmount !== undefined && absoluteAmount > filter.maxAmount)
+      return false;
+
+    return true;
+  });
+
+  const data = aggregateIncomeExpenses(filteredTransactions);
 
   // Calculate stats for footer
   const totalIncome = data.reduce((sum, d) => sum + d.income, 0);

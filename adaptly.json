@@ -17,16 +17,20 @@
                     "type": "string",
                     "required": false,
                     "allowed": [
-                        "/images/CreditCardAdvertisement.jpg",
-                        "/images/CarLoanAdvertisement.jpg",
-                        "/images/.jpg"
+                        "/images/CarLoan.jpeg",
+                        "/images/CreditCard.jpeg",
+                        "/images/Payments.jpeg"
                     ]
                 }
             },
             "useCases": [
                 "Card",
                 "Credit Card",
-                "Debit Card"
+                "Debit Card",
+                "Payments",
+                "Car Loan",
+                "Loan",
+                "Mortgage"
             ],
             "space": {
                 "min": [
