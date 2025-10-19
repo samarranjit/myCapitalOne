@@ -5,12 +5,12 @@
             "description": "Responsive 16:9 promotional banner image display. Use this as an item wherever possible with the other services of the bank. It is like the promotional banner of the corresponding services. The file names represent the service(s).",
             "props": {
                 "display": {
-                    "type": "boolean",
+                    "type": "string",
                     "required": true,
-                    "default": true,
+                    "default": "true",
                     "allowed": [
-                        true,
-                        false
+                        "true",
+                        "false"
                     ]
                 },
                 "img": {
@@ -67,11 +67,11 @@
                     ]
                 },
                 "display": {
-                    "type": "boolean",
+                    "type": "string",
                     "required": true,
                     "allowed": [
-                        true,
-                        false
+                        "true",
+                        "false"
                     ]
                 }
             },
@@ -107,11 +107,11 @@
             "description": "Summary for balance, income, and expenses with visual indicators.",
             "props": {
                 "display": {
-                    "type": "boolean",
+                    "type": "string",
                     "required": true,
                     "allowed": [
-                        true,
-                        false
+                        "true",
+                        "false"
                     ]
                 }
             },
@@ -140,11 +140,11 @@
             "description": "Recent transactions list with transaction details and categories. Presents 6 most recent transactions including both incomes and expenses",
             "props": {
                 "display": {
-                    "type": "boolean",
+                    "type": "string",
                     "required": false,
                     "allowed": [
-                        true,
-                        false
+                        "true",
+                        "false"
                     ]
                 }
             },
@@ -186,11 +186,11 @@
             "description": "Simple Visualized chart showing income vs expenses over time with statistics.",
             "props": {
                 "display": {
-                    "type": "boolean",
+                    "type": "string",
                     "required": true,
                     "allowed": [
-                        true,
-                        false
+                        "true",
+                        "false"
                     ]
                 }
             },

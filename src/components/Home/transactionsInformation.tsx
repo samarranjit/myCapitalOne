@@ -127,14 +127,14 @@ function latestMonthRange(txs: Tx[]) {
 }
 
 export const TransactionsInformation = ({
-  display = true,
+  display = "true",
   startDate,
   endDate,
   categories,
   type,
   limit = 5,
 }: {
-  display?: boolean;
+  display?: string;
   startDate?: string;
   endDate?: string;
   categories?: string[];

@@ -3,12 +3,12 @@
 import Image from "next/image";
 
 export default function AdBanner({
-  display = false,
+  display = "false",
   title,
   description,
   img,
 }: {
-  display: boolean;
+  display: string;
   title: string;
   description: string;
   img: string;
