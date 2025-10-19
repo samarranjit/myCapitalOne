@@ -1,0 +1,216 @@
+{
+    "version": "1.0.0",
+    "components": {
+        "AdBanner": {
+            "description": "Responsive 16:9 promotional banner image display. Use this as an item wherever possible with the other services of the bank. It is like the promotional banner of the corresponding services. The file names represent the service(s).",
+            "props": {
+                "display": {
+                    "type": "boolean",
+                    "required": true,
+                    "default": true,
+                    "allowed": [
+                        true,
+                        false
+                    ]
+                },
+                "img": {
+                    "type": "string",
+                    "required": false,
+                    "allowed": [
+                        "/images/CreditCardAdvertisement.jpg",
+                        "/images/CarLoanAdvertisement.jpg",
+                        "/images/.jpg"
+                    ]
+                }
+            },
+            "useCases": [
+                "Card",
+                "Credit Card",
+                "Debit Card"
+            ],
+            "space": {
+                "min": [
+                    4,
+                    1
+                ],
+                "max": [
+                    12,
+                    2
+                ],
+                "preferred": [
+                    12,
+                    12
+                ]
+            }
+        },
+        "ExploreBox": {
+            "description": "Grid of banking services with icons and links.",
+            "props": {
+                "category": {
+                    "type": "string",
+                    "required": true,
+                    "allowed": [
+                        "Cards",
+                        "Loans",
+                        "Accounts",
+                        "Wealth",
+                        "Payments",
+                        "Benefits",
+                        "Account",
+                        "Support",
+                        "Travel",
+                        "Business"
+                    ]
+                },
+                "display": {
+                    "type": "boolean",
+                    "required": true,
+                    "allowed": [
+                        true,
+                        false
+                    ]
+                }
+            },
+            "useCases": [
+                "Bank Services",
+                "Cards",
+                "Loans",
+                "Accounts",
+                "Wealth",
+                "Payments",
+                "Benefits",
+                "Account",
+                "Support",
+                "Travel",
+                "Business"
+            ],
+            "space": {
+                "min": [
+                    2,
+                    2
+                ],
+                "max": [
+                    12,
+                    12
+                ],
+                "preferred": [
+                    12,
+                    12
+                ]
+            }
+        },
+        "MyBalance": {
+            "description": "Summary for balance, income, and expenses with visual indicators.",
+            "props": {
+                "display": {
+                    "type": "boolean",
+                    "required": true,
+                    "allowed": [
+                        true,
+                        false
+                    ]
+                }
+            },
+            "useCases": [
+                "balance overview",
+                "income tracking",
+                "expense tracking",
+                "financial support"
+            ],
+            "space": {
+                "min": [
+                    12,
+                    12
+                ],
+                "max": [
+                    12,
+                    12
+                ],
+                "preferred": [
+                    12,
+                    12
+                ]
+            }
+        },
+        "TransactionsInformation": {
+            "description": "Recent transactions list with transaction details and categories. Presents 6 most recent transactions including both incomes and expenses",
+            "props": {
+                "display": {
+                    "type": "boolean",
+                    "required": false,
+                    "allowed": [
+                        true,
+                        false
+                    ]
+                }
+            },
+            "useCases": [
+                "income tracking",
+                "expense tracking",
+                "income",
+                "expenses",
+                "money",
+                "transactions",
+                "recent transactions",
+                "balance overview",
+                "financial tracking",
+                "latest transactions",
+                "transaction history",
+                "Payments",
+                "Groceries",
+                "Utilities",
+                "Dining",
+                "Health",
+                "Transport"
+            ],
+            "space": {
+                "min": [
+                    12,
+                    12
+                ],
+                "max": [
+                    12,
+                    12
+                ],
+                "preferred": [
+                    12,
+                    12
+                ]
+            }
+        },
+        "IncomeExpenseChart": {
+            "description": "Simple Visualized chart showing income vs expenses over time with statistics.",
+            "props": {
+                "display": {
+                    "type": "boolean",
+                    "required": true,
+                    "allowed": [
+                        true,
+                        false
+                    ]
+                }
+            },
+            "useCases": [
+                "financial support",
+                "financial tracking",
+                "budget monitoring",
+                "financial health overview",
+                "trend analysis"
+            ],
+            "space": {
+                "min": [
+                    12,
+                    12
+                ],
+                "max": [
+                    12,
+                    12
+                ],
+                "preferred": [
+                    12,
+                    12
+                ]
+            }
+        }
+    }
+}

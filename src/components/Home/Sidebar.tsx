@@ -24,7 +24,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Mobile overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300"
           onClick={onClose}
         />
       )}
@@ -32,7 +32,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-16 left-0 z-40 h-[calc(100vh-4rem)] w-64 bg-card border-r
+          fixed top-16 left-0 z-40 h-[calc(100vh-4rem)] w-64 bg-card/95 backdrop-blur-xl border-r shadow-lg
           transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0
@@ -41,13 +41,13 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         <div className="flex flex-col h-full p-4">
           <button
             onClick={onClose}
-            className="lg:hidden self-end mb-4 p-2 hover:bg-accent rounded-md"
+            className="lg:hidden self-end mb-4 p-2 hover:bg-accent/80 rounded-lg transition-all duration-200 hover:scale-105 active:scale-95"
             aria-label="Close menu"
           >
             <X className="h-5 w-5" />
           </button>
 
-          <nav className="space-y-2 flex-1">
+          <nav className="space-y-1.5 flex-1">
             {navigation.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
@@ -58,20 +58,24 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                   href={item.href}
                   onClick={onClose}
                   className={`
-                    flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium relative
-                    transition-colors
+                    flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium relative
+                    transition-all duration-200 group
                     ${
                       isActive
-                        ? "bg-secondary/20 text-secondary-foreground"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        ? "bg-secondary/20 text-secondary-foreground shadow-sm"
+                        : "text-muted-foreground hover:bg-accent/80 hover:text-accent-foreground hover:translate-x-1"
                     }
                   `}
                 >
                   {isActive && (
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r bg-tertiary" />
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 rounded-r bg-gradient-to-b from-tertiary to-tertiary/50 shadow-sm" />
                   )}
-                  <Icon className="h-5 w-5" />
-                  {item.name}
+                  <Icon
+                    className={`h-5 w-5 transition-all duration-200 ${
+                      isActive ? "text-secondary" : "group-hover:scale-110"
+                    }`}
+                  />
+                  <span className="font-medium">{item.name}</span>
                 </Link>
               );
             })}
