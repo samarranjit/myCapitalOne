@@ -20,8 +20,8 @@ export default function Header({ onMenuClick }: HeaderProps) {
 
         <div className="flex-1 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">
+            <div className="h-8 w-8 rounded-lg bg-tertiary flex items-center justify-center">
+              <span className="text-tertiary-foreground font-bold text-sm">
                 MCO
               </span>
             </div>

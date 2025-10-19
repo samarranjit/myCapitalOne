@@ -10,7 +10,7 @@ const currency = new Intl.NumberFormat(undefined, {
 export default function MyBalance() {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      <Card>
+      <Card className="border-t-2 border-tertiary/60">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground">
             Total Balance
@@ -23,7 +23,7 @@ export default function MyBalance() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-t-2 border-tertiary/60">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground">
             Monthly Income
@@ -36,7 +36,7 @@ export default function MyBalance() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-t-2 border-tertiary/60">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground">
             Monthly Expenses

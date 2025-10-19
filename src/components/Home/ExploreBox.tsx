@@ -10,11 +10,23 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function ExploreBox() {
+type Category =
+  | "Accounts"
+  | "Account"
+  | "Cards"
+  | "Loans"
+  | "Payments"
+  | "Wealth"
+  | "Benefits"
+  | "Support"
+  | "Services"
+  | "Business";
+
+export default function ExploreBox({ category }: { category?: Category }) {
   return (
     <section className="rounded-lg border bg-card p-6 shadow-sm">
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Explore Banking</h2>
+        <h2 className="text-xl font-semibold">Explore Services</h2>
         {/* <span className="text-xs text-muted-foreground">Powered by My Capital One</span> */}
       </div>
       <div className="searchBox">
@@ -25,40 +37,51 @@ export default function ExploreBox() {
         />
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {bankingOptions.map((opt) => {
-          const Icon = opt.icon;
-          return (
-            <Link key={opt.id} href={opt.href} className="group">
-              <Card className="h-full transition-colors hover:bg-accent">
-                <CardHeader className="p-4">
-                  <div className="flex items-start gap-3">
-                    <div className="h-10 w-10 shrink-0 rounded-md bg-primary/90 text-primary-foreground flex items-center justify-center ring-1 ring-border">
-                      <Icon className="h-5 w-5" />
+        {bankingOptions
+          .filter((opt) => {
+            if (!category) return true;
+            const normalizedTitle = opt.category
+              .toLowerCase()
+              .replace(/\s+/g, "");
+            const normalizedCategory = category
+              .toLowerCase()
+              .replace(/\s+/g, "");
+            return normalizedTitle.includes(normalizedCategory);
+          })
+          .map((opt) => {
+            const Icon = opt.icon;
+            return (
+              <Link key={opt.id} href={opt.href} className="group">
+                <Card className="h-full transition-colors hover:bg-accent hover:ring-1 hover:ring-tertiary/60">
+                  <CardHeader className="p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="h-10 w-10 shrink-0 rounded-md bg-tertiary text-tertiary-foreground flex items-center justify-center ring-2 ring-tertiary/30">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div className="min-w-0">
+                        <CardTitle className="text-base">
+                          {opt.title}
+                          {opt.badge ? (
+                            <span className="ml-2 rounded-full bg-secondary/20 px-2 py-0.5 text-[10px] font-medium text-secondary-foreground align-middle">
+                              {opt.badge}
+                            </span>
+                          ) : null}
+                        </CardTitle>
+                        <CardDescription className="line-clamp-2">
+                          {opt.description}
+                        </CardDescription>
+                      </div>
                     </div>
-                    <div className="min-w-0">
-                      <CardTitle className="text-base">
-                        {opt.title}
-                        {opt.badge ? (
-                          <span className="ml-2 rounded-full bg-secondary/20 px-2 py-0.5 text-[10px] font-medium text-secondary-foreground align-middle">
-                            {opt.badge}
-                          </span>
-                        ) : null}
-                      </CardTitle>
-                      <CardDescription className="line-clamp-2">
-                        {opt.description}
-                      </CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-4 pt-0">
+                    <div className="text-xs text-muted-foreground">
+                      Learn more →
                     </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="p-4 pt-0">
-                  <div className="text-xs text-muted-foreground">
-                    Learn more →
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          );
-        })}
+                  </CardContent>
+                </Card>
+              </Link>
+            );
+          })}
       </div>
     </section>
   );

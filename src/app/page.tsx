@@ -18,7 +18,7 @@ export default function Home() {
 
           <MyBalance />
 
-          <ExploreBox />
+          <ExploreBox category="Cards" />
 
           <div className="rounded-lg border bg-card p-6 shadow-sm">
             <h2 className="text-xl font-semibold mb-4">Recent Transactions</h2>
